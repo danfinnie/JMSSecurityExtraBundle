@@ -47,6 +47,7 @@ class AccessControlConfiguration implements ConfigurationInterface
                     ->cannotBeOverwritten()
                     ->prototype('array')
                         ->fixXmlConfig('role')
+                        ->fixXmlConfig('ip')
                         ->validate()
                             ->always(function($v) {
                                 if (!empty($v['roles']) && isset($v['access'])) {
@@ -64,7 +65,7 @@ class AccessControlConfiguration implements ConfigurationInterface
                             ->scalarNode('requires_channel')->defaultNull()->end()
                             ->scalarNode('path')->defaultNull()->end()
                             ->scalarNode('host')->defaultNull()->end()
-                            ->arrayNode('ip')
+                            ->arrayNode('ips')
                                 ->defaultValue(array())
                                 ->beforeNormalization()->ifString()->then(function($v) { return array($v); })->end()
                                 ->prototype('scalar')->end()
